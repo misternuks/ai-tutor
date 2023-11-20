@@ -1,0 +1,8 @@
+<div class="container p-3">
+  <h1 class="text-center">Yo what up! Here are the courses:</h1>
+  <div class="m-3 d-flex flex-column align-items-center gap-1">
+    <% @courses.each do |course| %>
+      <%= link_to course.name, course_path(course), class: "btn btn-primary w-50" %>
+    <% end %>
+  </div>
+</div>

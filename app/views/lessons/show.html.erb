@@ -1,0 +1,10 @@
+<div class="container p-3">
+  <h1 class="text-center"><%= @lesson.name %> Chat:</h1>
+  <div class="m-3 d-flex flex-column align-items-center gap-1">
+    <% @lesson.chatrooms.each do |chatroom| %>
+      <%= link_to "Continue to the chatroom", chatroom_path(chatroom), class: "btn btn-primary"  %>
+    <% end %>
+    <br>
+    <%= link_to "Create a new chatroom", new_lesson_chatroom_path(@lesson), class: "btn btn-success" %>
+  </div>
+</div>

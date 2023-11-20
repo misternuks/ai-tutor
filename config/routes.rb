@@ -9,9 +9,18 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :courses
-  resources :units
-  resources :lessons
+  resources :courses, shallow: true do
+    resources :units
+  end
+
+  resources :units, shallow: true do
+    resources :lessons
+  end
+
+  resources :lessons, shallow: true do
+    resources :chatrooms
+  end
+
   resources :chatrooms do
     resources :messages, only: :create
   end

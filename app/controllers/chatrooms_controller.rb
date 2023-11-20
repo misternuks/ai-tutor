@@ -7,10 +7,13 @@ class ChatroomsController < ApplicationController
 
   def new
     @chatroom = Chatroom.new
+    @lesson = Lesson.find(params[:lesson_id])
   end
 
   def create
+    @lesson = Lesson.find(params[:lesson_id])
     @chatroom = Chatroom.new(chatroom_params)
+    @chatroom.lesson = @lesson
 
     if @chatroom.save
       redirect_to @chatroom
@@ -22,7 +25,7 @@ class ChatroomsController < ApplicationController
   private
 
   def chatroom_params
-    params.require(:chatroom).permit(:name)
+    params.require(:chatroom).permit(:name, :lesson)
   end
 
 end

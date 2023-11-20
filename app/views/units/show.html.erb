@@ -1,0 +1,8 @@
+<div class="container p-3">
+  <h1 class="text-center">Here are the lessons for the <%= @unit.name %> unit:</h1>
+  <div class="m-3 d-flex flex-column align-items-center gap-1">
+    <% @unit.lessons.each do |lesson| %>
+      <%= link_to lesson.name, lesson_path(lesson), class: "btn btn-primary w-50" %>
+    <% end %>
+  </div>
+</div>
