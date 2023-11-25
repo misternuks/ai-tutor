@@ -1,8 +1,10 @@
 <div class="container p-3">
-  <h1 class="text-center">Yo what up! Here are the courses:</h1>
-  <div class="m-3 d-flex flex-column align-items-center gap-1">
-    <% @courses.each do |course| %>
-      <%= link_to course.name, course_path(course), class: "btn btn-primary w-50" %>
+  <div data-controller="dropdowns">
+    <%= form_with url: '#', method: :get do |form| %>
+      <%= form.collection_select :course_id, @courses, :id, :name, { include_blank: true }, { data: { dropdowns_target: "course", action: "change->dropdowns#selectCourse" } } %>
+      <%= form.collection_select :unit_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "unit", action: "change->dropdowns#selectUnit" } } %>
+      <%= form.collection_select :lesson_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "lesson", action: "change->dropdowns#selectLesson" } } %>
+      <%= link_to 'Go to Chatroom', '#', id: 'chatroom_button', data: { dropdowns_target: "chatroomButton" }, disabled: true %>
     <% end %>
   </div>
 </div>

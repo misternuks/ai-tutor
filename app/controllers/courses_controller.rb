@@ -4,6 +4,27 @@ class CoursesController < ApplicationController
     @courses = Course.all
   end
 
+  def units
+    @units = Course.find(params[:id]).units
+    respond_to do |format|
+      format.json { render json: @units }
+    end
+  end
+
+  def lessons
+    @lessons = Unit.find(params[:unit_id]).lessons
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def chatrooms
+    @chatrooms = Lesson.find(params[:lesson_id]).chatrooms
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def show
     @course = Course.find(params[:id])
   end

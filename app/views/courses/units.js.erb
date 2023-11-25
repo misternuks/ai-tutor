@@ -1,0 +1,7 @@
+// Create a string of HTML options for the units dropdown
+var options = "<option value=''>Select Unit</option>";
+<% @units.each do |unit| %>
+  options += "<option value='<%= unit.id %>'><%= j unit.name %></option>";
+<% end %>
+// Update the unit dropdown with the new options
+document.getElementById('course_form_unit_id').innerHTML = options;
