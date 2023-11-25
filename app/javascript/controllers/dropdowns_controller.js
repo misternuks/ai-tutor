@@ -22,25 +22,31 @@ export default class extends Controller {
       })
         .then(response => response.json())
         .then(data => {
+          console.log(data);
           let options = data.map(unit => `<option value="${unit.id}">${unit.name}</option>`).join('');
           options = `<option value=''>Select Unit</option>` + options;
           this.unitTarget.innerHTML = options;
+          this.unitTarget.disabled = false;
         });
     }
   }
 
   selectUnit() {
     const unitId = this.unitTarget.value;
-    if (unitId) {
-      fetch(`/courses/units/${unitId}/lessons.js`, {
-        headers: {
-          'X-CSRF-Token': this.getCSRFToken(),
-          'Accept': 'text/javascript'
+  const courseId = this.courseTarget.value; // Get the selected course ID
+  if (unitId) {
+    fetch(`/courses/${courseId}/lessons?unit_id=${unitId}.json`, { // Updated URL
+      headers: {
+        'X-CSRF-Token': this.getCSRFToken(),
+          'Accept': 'application/json'
 
         }
       })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
+          console.log(data);
+          let options = data.map(lesson => `<option value="${lesson.id}">${lesson.name}</option>`).join('');
+          options = `<option value=''>Select Lesson</option>` + options;
           this.lessonTarget.innerHTML = data;
           this.lessonTarget.disabled = false;
         });
@@ -49,10 +55,25 @@ export default class extends Controller {
 
   selectLesson() {
     const lessonId = this.lessonTarget.value;
+    const unitId = this.unitTarget.value; // Get the selected unit ID
+    const courseId = this.courseTarget.value; // Get the selected course ID
     if (lessonId) {
-      // Optionally, you might fetch lesson's chatrooms here, or just enable the chatroom button
-      this.chatroomButtonTarget.disabled = false;
-      this.chatroomButtonTarget.href = `/lessons/${lessonId}/chatrooms`;
+      fetch(`/courses/${courseId}/lessons?unit_id=${unitId}.json`, { // Updated URL and format
+        headers: {
+          'X-CSRF-Token': this.getCSRFToken(),
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Process the JSON data to update the chatroomButton or other elements as needed
+        // For example, updating the href for the chatroom button:
+        if(data.length > 0) {
+          this.chatroomButtonTarget.href = `/lessons/${lessonId}/chatrooms`;
+          this.chatroomButtonTarget.disabled = false;
+        }
+      });
     }
   }
 

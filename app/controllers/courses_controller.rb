@@ -12,16 +12,18 @@ class CoursesController < ApplicationController
   end
 
   def lessons
-    @lessons = Unit.find(params[:unit_id]).lessons
+    unit = Unit.find(params[:unit_id])
+    @lessons = unit.lessons
     respond_to do |format|
-      format.js
+      format.json { render json: @lessons }
     end
   end
 
   def chatrooms
-    @chatrooms = Lesson.find(params[:lesson_id]).chatrooms
+    lesson = Lesson.find(params[:lesson_id])
+    @chatrooms = lesson.chatrooms
     respond_to do |format|
-      format.js
+      format.json { render json: @chatrooms }
     end
   end
 
