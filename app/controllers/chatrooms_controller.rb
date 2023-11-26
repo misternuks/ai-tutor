@@ -1,5 +1,10 @@
 class ChatroomsController < ApplicationController
 
+  def index
+    @lesson = Lesson.find(params[:lesson_id])
+    @chatrooms = @lesson.chatrooms
+  end
+
   def show
     @chatroom = Chatroom.find(params[:id])
     @message = Message.new

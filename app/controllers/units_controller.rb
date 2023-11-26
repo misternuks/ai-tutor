@@ -1,6 +1,8 @@
 class UnitsController < ApplicationController
   def index
-    @units = Unit.all
+    @course = Course.find(params[:course_id])
+    @units = @course.units
+    render json: @units
   end
 
   def show

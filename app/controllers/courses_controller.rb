@@ -2,27 +2,11 @@ class CoursesController < ApplicationController
 
   def index
     @courses = Course.all
+    # respond_to do |format|
+    #   format.json { render json: @courses }
+    # end
   end
 
-  def units
-    @units = Course.find(params[:id]).units
-    respond_to do |format|
-      format.json { render json: @units }
-    end
-  end
-
-  def lessons
-    unit = Unit.find(params[:unit_id])
-    @lessons = unit.lessons
-    respond_to do |format|
-      format.json { render json: @lessons }
-    end
-  end
-
-  def chatrooms
-    @lesson = Lesson.find(params[:lesson_id])
-    @chatrooms = @lesson.chatrooms
-  end
 
   def show
     @course = Course.find(params[:id])
@@ -70,3 +54,23 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:name, :details)
   end
 end
+
+# def units
+#   @units = Course.find(params[:id]).units
+#   respond_to do |format|
+#     format.json { render json: @units }
+#   end
+# end
+
+# def lessons
+#   unit = Unit.find(params[:unit_id])
+#   @lessons = unit.lessons
+#   respond_to do |format|
+#     format.json { render json: @lessons }
+#   end
+# end
+
+# def chatrooms
+#   @lesson = Lesson.find(params[:lesson_id])
+#   @chatrooms = @lesson.chatrooms
+# end

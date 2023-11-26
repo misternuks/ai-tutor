@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ["course", "unit", "lesson", "chatroomButton"]
 
   connect() {
-    // Initial state when the page loads
     this.unitTarget.disabled = true;
     this.lessonTarget.disabled = true;
     this.chatroomButtonTarget.hidden = true;
@@ -14,67 +13,58 @@ export default class extends Controller {
   selectCourse() {
     const courseId = this.courseTarget.value;
     if (courseId) {
-      fetch(`/courses/${courseId}/units.json`, {
-        headers: {
-          'X-CSRF-Token': this.getCSRFToken(),
-          'Accept': 'application/json'
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          let options = data.map(unit => `<option value="${unit.id}">${unit.name}</option>`).join('');
-          options = `<option value=''>Select Unit</option>` + options;
-          this.unitTarget.innerHTML = options;
-          this.unitTarget.disabled = false;
-        });
-    }
-  }
-
-  selectUnit() {
-    const unitId = this.unitTarget.value;
-  const courseId = this.courseTarget.value; // Get the selected course ID
-  if (unitId) {
-    fetch(`/courses/${courseId}/lessons?unit_id=${unitId}.json`, { // Updated URL
-      headers: {
-        'X-CSRF-Token': this.getCSRFToken(),
-          'Accept': 'application/json'
-
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          let options = data.map(lesson => `<option value="${lesson.id}">${lesson.name}</option>`).join('');
-          options = `<option value=''>Select Lesson</option>` + options;
-          this.lessonTarget.innerHTML = options;
-          this.lessonTarget.disabled = false;
-        });
-    }
-  }
-
-  selectLesson() {
-    const lessonId = this.lessonTarget.value;
-    const unitId = this.unitTarget.value; // Get the selected unit ID
-    const courseId = this.courseTarget.value; // Get the selected course ID
-    if (lessonId) {
-      fetch(`/courses/${courseId}/lessons?unit_id=${unitId}.json`, { // Updated URL and format
+      fetch(`/units.json?course_id=${courseId}`, { // Adjusted to fetch units for a course
         headers: {
           'X-CSRF-Token': this.getCSRFToken(),
           'Accept': 'application/json'
         }
       })
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // Process the JSON data to update the chatroomButton or other elements as needed
-        // For example, updating the href for the chatroom button:
-        if(data.length > 0) {
-          this.chatroomButtonTarget.href = `/courses/${courseId}/chatrooms?lesson_id=${lessonId}/chatrooms`;
-          this.chatroomButtonTarget.hidden = false;
-        }
-      });
+      .then(data => this.populateDropdown(this.unitTarget, data, 'Select Unit'));
+    } else {
+      this.resetDropdown(this.unitTarget, 'Select Unit');
+      this.resetDropdown(this.lessonTarget, 'Select Lesson');
+      this.chatroomButtonTarget.hidden = true;
     }
+  }
+
+  selectUnit() {
+    const unitId = this.unitTarget.value;
+    if (unitId) {
+      fetch(`/lessons.json?unit_id=${unitId}`, { // Adjusted to fetch lessons for a unit
+        headers: {
+          'X-CSRF-Token': this.getCSRFToken(),
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => this.populateDropdown(this.lessonTarget, data, 'Select Lesson'));
+    } else {
+      this.resetDropdown(this.lessonTarget, 'Select Lesson');
+      this.chatroomButtonTarget.hidden = true;
+    }
+  }
+
+  selectLesson() {
+    const lessonId = this.lessonTarget.value;
+    if (lessonId) {
+      this.chatroomButtonTarget.href = `/chatrooms?lesson_id=${lessonId}`; // Adjust href based on selected lesson
+      this.chatroomButtonTarget.hidden = false;
+    } else {
+      this.chatroomButtonTarget.hidden = true;
+    }
+  }
+
+  populateDropdown(target, data, defaultOptionText) {
+    let options = data.map(item => `<option value="${item.id}">${item.name}</option>`).join('');
+    options = `<option value=''>${defaultOptionText}</option>` + options;
+    target.innerHTML = options;
+    target.disabled = false;
+  }
+
+  resetDropdown(target, defaultOptionText) {
+    target.innerHTML = `<option value=''>${defaultOptionText}</option>`;
+    target.disabled = true;
   }
 
   getCSRFToken() {
