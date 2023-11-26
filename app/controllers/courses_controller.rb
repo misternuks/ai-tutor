@@ -20,11 +20,8 @@ class CoursesController < ApplicationController
   end
 
   def chatrooms
-    lesson = Lesson.find(params[:lesson_id])
-    @chatrooms = lesson.chatrooms
-    respond_to do |format|
-      format.json { render json: @chatrooms }
-    end
+    @lesson = Lesson.find(params[:lesson_id])
+    @chatrooms = @lesson.chatrooms
   end
 
   def show

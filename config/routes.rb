@@ -15,6 +15,11 @@ Rails.application.routes.draw do
     get :chatrooms, on: :member
   end
 
+  resources :chatrooms, only: :show
+  resources :chatrooms do
+    resources :messages, only: :create
+  end
+
   # resources :courses, shallow: true do
   #   resources :units
   # end
@@ -27,7 +32,4 @@ Rails.application.routes.draw do
   #   resources :chatrooms
   # end
 
-  # resources :chatrooms do
-  #   resources :messages, only: :create
-  # end
 end

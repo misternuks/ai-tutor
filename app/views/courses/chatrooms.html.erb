@@ -1,0 +1,6 @@
+Yo what up for <%= @lesson.name %>'s chatrooms.
+<% @lesson.chatrooms.each do |chatroom| %>
+  <div class="card">
+    <%= link_to chatroom.name, chatroom_path  %>
+  </div>
+<% end %>

@@ -8,7 +8,7 @@ export default class extends Controller {
     // Initial state when the page loads
     this.unitTarget.disabled = true;
     this.lessonTarget.disabled = true;
-    this.chatroomButtonTarget.disabled = true;
+    this.chatroomButtonTarget.hidden = true;
   }
 
   selectCourse() {
@@ -47,7 +47,7 @@ export default class extends Controller {
           console.log(data);
           let options = data.map(lesson => `<option value="${lesson.id}">${lesson.name}</option>`).join('');
           options = `<option value=''>Select Lesson</option>` + options;
-          this.lessonTarget.innerHTML = data;
+          this.lessonTarget.innerHTML = options;
           this.lessonTarget.disabled = false;
         });
     }
@@ -70,8 +70,8 @@ export default class extends Controller {
         // Process the JSON data to update the chatroomButton or other elements as needed
         // For example, updating the href for the chatroom button:
         if(data.length > 0) {
-          this.chatroomButtonTarget.href = `/lessons/${lessonId}/chatrooms`;
-          this.chatroomButtonTarget.disabled = false;
+          this.chatroomButtonTarget.href = `/courses/${courseId}/chatrooms?lesson_id=${lessonId}/chatrooms`;
+          this.chatroomButtonTarget.hidden = false;
         }
       });
     }
