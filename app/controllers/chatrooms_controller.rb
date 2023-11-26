@@ -12,6 +12,7 @@ class ChatroomsController < ApplicationController
     @course = @unit.course
     @messages = @chatroom.messages
     @context = {
+      sytem_message: SystemMessage.last.content,
       course_details: @course.details,
       unit_details: @unit.details,
       lesson_details: @lesson.details,

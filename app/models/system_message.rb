@@ -1,0 +1,2 @@
+class SystemMessage < ApplicationRecord
+end

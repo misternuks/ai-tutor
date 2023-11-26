@@ -26,13 +26,14 @@ class OpenAiService
 
   def self.format_prompt(message, context)
     # Extracting context details
+    system_message = context[:system_message]
     course_details = context[:course_details]
     unit_details = context[:unit_details]
     lesson_details = context[:lesson_details]
     previous_messages = context[:messages]
 
     # Formatting the context as a readable string
-    context_string = "Course: #{course_details}\nUnit: #{unit_details}\nLesson: #{lesson_details}\n"
+    context_string = "#{system_message}. Here are the relevant details: Course: #{course_details}\nUnit: #{unit_details}\nLesson: #{lesson_details}\n"
 
     # Adding previous chat messages to the context
     chat_history = previous_messages.map do |msg|
