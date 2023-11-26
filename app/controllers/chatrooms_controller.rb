@@ -7,6 +7,16 @@ class ChatroomsController < ApplicationController
 
   def show
     @chatroom = Chatroom.find(params[:id])
+    @lesson = @chatroom.lesson
+    @unit = @lesson.unit
+    @course = @unit.course
+    @messages = @chatroom.messages
+    @context = {
+      course_details: @course.details,
+      unit_details: @unit.details,
+      lesson_details: @lesson.details,
+      messages: @messages.map { |m| { user: m.user.username, content: m.content, time: m.created_at } }
+    }
     @message = Message.new
   end
 
