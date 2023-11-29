@@ -14,7 +14,7 @@ class OpenAiService
 
     response = client.chat(
       parameters: {
-        model: "gpt-3.5-turbo", # You can change the model as needed
+        model: "gpt-3.5-turbo", # Change this to gpt-4 later
         messages: [
           { role: "system", content: system_message },
           { role: "user", content: format_context(course_details, unit_details, lesson_details) },

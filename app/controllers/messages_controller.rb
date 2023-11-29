@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+
   def create
     @chatroom = Chatroom.find(params[:chatroom_id])
     @message = Message.new(message_params)
@@ -6,24 +7,11 @@ class MessagesController < ApplicationController
     @message.user = current_user
 
     if @message.save
-      context = build_context
+      broadcast_message(@message)
+      ai_response = handle_ai_response
 
-      # Call the updated OpenAiService with the message and context
-      ai_response = OpenAiService.chat(@message.content, context)
-
-      # Check if the response contains the expected data
-      if ai_response
-        # Create a new message with the AI response, using a system user or bot
-        Message.create(chatroom: @chatroom, user: system_user, content: ai_response)
-      else
-        Rails.logger.error("OpenAI Error: Response was empty or invalid.")
-      end
-
-      # Broadcasting the user message
-      ChatroomChannel.broadcast_to(
-        @chatroom,
-        render_to_string(partial: "message", locals: { message: @message })
-      )
+      # Broadcast AI response if present
+      broadcast_message(ai_response) if ai_response
       head :ok
     else
       render "chatrooms/show", status: :unprocessable_entity
@@ -66,5 +54,26 @@ class MessagesController < ApplicationController
   def system_user
     # Assuming you have a system user or bot user for AI responses
     User.find_by(username: "AI Assistant")
+  end
+
+  def handle_ai_response
+    context = build_context
+    ai_content = OpenAiService.chat(@message.content, context)
+
+    if ai_content
+      ai_message = Message.create(chatroom: @chatroom, user: system_user, content: ai_content)
+    else
+      Rails.logger.error("OpenAI Error: Response was empty or invalid.")
+      nil
+    end
+  end
+
+  def broadcast_message(message)
+    return unless message
+
+    ChatroomChannel.broadcast_to(
+      @chatroom,
+      render_to_string(partial: "message", locals: { message: message })
+    )
   end
 end
