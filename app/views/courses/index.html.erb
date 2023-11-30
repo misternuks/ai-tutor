@@ -1,10 +1,14 @@
-<div class="container p-3">
-  <div data-controller="dropdowns">
-    <%= form_with url: '#', method: :get do |form| %>
-      <%= form.collection_select :course_id, @courses, :id, :name, { include_blank: true }, { data: { dropdowns_target: "course", action: "change->dropdowns#selectCourse" } } %>
-      <%= form.collection_select :unit_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "unit", action: "change->dropdowns#selectUnit" } } %>
-      <%= form.collection_select :lesson_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "lesson", action: "change->dropdowns#selectLesson" } } %>
-      <%= link_to 'Go to Chatroom', '#', id: 'chatroom_button', data: { dropdowns_target: "chatroomButton" }, disabled: true %>
-    <% end %>
+<div class="p-3 m-3">
+  <div class="card p-3">
+    <h1 class="text-center">Welcome to KUIS AI Tutor!</h1>
+    <h5>Select a course from the menu.</h5>
+    <div data-controller="dropdowns" >
+      <%= form_with url: '#', class: "d-flex flex-column gap-1 px-5", method: :get do |form| %>
+        <%= form.collection_select :course_id, @courses, :id, :name, { include_blank: true }, { data: { dropdowns_target: "course", action: "change->dropdowns#selectCourse" } } %>
+        <%= form.collection_select :unit_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "unit", action: "change->dropdowns#selectUnit" } } %>
+        <%= form.collection_select :lesson_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "lesson", action: "change->dropdowns#selectLesson" } } %>
+        <%= link_to 'Go to Chatroom', '#', id: 'chatroom_button', class: "btn btn-primary", data: { dropdowns_target: "chatroomButton" }, disabled: true %>
+      <% end %>
+    </div>
   </div>
 </div>
