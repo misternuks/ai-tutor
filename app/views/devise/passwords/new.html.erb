@@ -1,5 +1,5 @@
 <div class="m-3 p-3 d-flex flex-column align-items-center">
-  <div class="card p-3">
+  <div class="display-card">
     <h2>Forgot your password?</h2>
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <%= f.error_notification %>

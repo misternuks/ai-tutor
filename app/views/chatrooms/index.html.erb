@@ -1,6 +1,6 @@
-<div class="container p-3">
+<div class="m-3 p-3">
   <h1><%= @lesson.name %>'s chatrooms</h1>
-  <div class="card p-3 m-3 d-flex flex-column align-items-center">
+  <div class="display-card d-flex justify-content-center">
     <% @lesson.chatrooms.each do |chatroom| %>
       <%= link_to chatroom.name, chatroom_path(chatroom), class: "btn btn-primary w-50" %>
     <% end %>
