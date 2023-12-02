@@ -73,8 +73,8 @@ class MessagesController < ApplicationController
 
     ChatroomChannel.broadcast_to(
       @chatroom,
-      message: render_to_string(partial: "message", locals: { message: @message }),
-      sender_id: @message.user.id
+      message: render_to_string(partial: "message", locals: { message: message }),
+      sender_id: message.user.id
     )
   end
 end
