@@ -1,6 +1,14 @@
-<div class="container">
-  <div class="p-3 m-3 d-flex flex-column align-items-center">
-    <h1>What wouldst thou do?</h1>
-    <%= link_to "Choose a course", courses_path, class: "btn btn-primary w-50" %>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/background.png);">
+  <div class="container">
+    <h1>Welcome to KUIS TutorAI</h1>
+    <p>Your 24/7 Study Buddy</p>
+    <% if user_signed_in? %>
+      <%= link_to "Go to your courses", courses_path, class: "btn btn-gradient" %>
+    <% else %>
+      <%= link_to "Log in or sign up", new_user_session_path, class: "btn btn-gradient" %>
+    <% end %>
   </div>
+</div>
+<div class="container mt-3">
+  <p class="text-end">Problems? <a href="mailto:euan.bonner@gmail.com">Contact the administrator.</a></p>
 </div>
