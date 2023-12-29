@@ -1,13 +1,19 @@
 <div class="p-3 m-3">
   <div class="display-card">
-    <h1 class="text-center">Welcome to KUIS AI Tutor!</h1>
-    <h5>Select a course from the menu.</h5>
+    <h1 class="text-center">KUIS Tutor AI</h1>
+    <h5>Instructions</h5>
+    <ol>
+      <li>Select your course from the first dropdown.</li>
+      <li>Select the unit related to your course.</li>
+      <li>Choose the lesson you're interested in.</li>
+      <li>Click "Go to Chat" to start your personalized tutoring session.</li>
+    </ol>
     <div data-controller="dropdowns" class="dropdown" >
-      <%= form_with url: '#', class: "d-flex flex-column gap-1 px-5", method: :get do |form| %>
-        <%= form.collection_select :course_id, @courses, :id, :name, { include_blank: true }, { data: { dropdowns_target: "course", action: "change->dropdowns#selectCourse" }, class: "btn btn-white border border-secondary" } %>
-        <%= form.collection_select :unit_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "unit", action: "change->dropdowns#selectUnit" }, class: "btn btn-white border border-secondary"  } %>
-        <%= form.collection_select :lesson_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "lesson", action: "change->dropdowns#selectLesson" }, class: "btn btn-white border border-secondary"  } %>
-        <%= link_to 'Go to Chatroom', '#', id: 'chatroom_button', class: "btn btn-primary", data: { dropdowns_target: "chatroomButton" }, disabled: true %>
+      <%= form_with url: '#', class: "course-menu", method: :get do |form| %>
+        <%= form.collection_select :course_id, @courses, :id, :name, { include_blank: true }, { data: { dropdowns_target: "course", action: "change->dropdowns#selectCourse" }, class: "course-menu-item" } %>
+        <%= form.collection_select :unit_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "unit", action: "change->dropdowns#selectUnit" }, class: "course-menu-item"  } %>
+        <%= form.collection_select :lesson_id, [], :id, :name, { include_blank: true, disabled: true }, { data: { dropdowns_target: "lesson", action: "change->dropdowns#selectLesson" }, class: "course-menu-item"  } %>
+        <%= link_to 'Go to Chat', '#', id: 'chatroom_button', class: "btn btn-gradient", data: { dropdowns_target: "chatroomButton" }, disabled: true %>
       <% end %>
     </div>
   </div>
