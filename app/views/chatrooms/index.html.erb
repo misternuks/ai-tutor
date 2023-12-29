@@ -1,8 +1,11 @@
-<div class="m-3 p-3">
-  <h1><%= @lesson.name %>'s chatrooms</h1>
-  <div class="display-card d-flex justify-content-center">
+<div class="d-flex align-items-stretch vh-100">
+  <div class="bg-light p-3">
+    <h5>Your chats for <%= @lesson.name %></h5>
     <% @lesson.chatrooms.each do |chatroom| %>
-      <%= link_to chatroom.name, chatroom_path(chatroom), class: "btn btn-primary w-50" %>
+      <%= link_to chatroom.name, chatroom_path(chatroom), class: "btn btn-ghost-2" %>
     <% end %>
+  </div>
+  <div class="w-100 p-3 d-flex align-items-center justify-content-center text-center">
+    <h1>How can I help you today?</h1>
   </div>
 </div>
