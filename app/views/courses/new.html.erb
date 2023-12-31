@@ -1,9 +1,9 @@
 <div class="container">
-  <div class="display-card mt-3 form-group">
+  <div class="display-card mt-3">
     <h1 class="text-center">New Course Form</h1>
     <%= simple_form_for @course do |f| %>
-      <%= f.input :name, label: 'Type the class name:', class: "form-control" %>
-      <%= f.input :details, label: 'Describe the class in detail:', class: "form-control" %>
+      <%= f.input :name, label: 'Type the class name:', input_html: { class: "form-field" } %>
+      <%= f.input :details, label: 'Describe the class in detail:', input_html: { class: "form-field" } %>
       <%= f.button :submit, class: "btn btn-gradient" %>
     <% end %>
   </div>

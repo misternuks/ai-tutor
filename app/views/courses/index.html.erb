@@ -1,4 +1,4 @@
-<div class="p-3 m-3">
+<div class="p-3 m-3 d-flex flex-column align-items-center justify-content-center">
   <div class="display-card">
     <h1 class="text-center">KUIS Tutor AI</h1>
     <h5>Instructions</h5>
@@ -22,12 +22,13 @@
     <h5>Current courses:</h5>
     <ol class="list-group">
       <% @courses.each do |course| %>
-        <li class="list-group-item">
+        <li class="list-group-item w-auto">
           <%= link_to course.name, course_path(course), class: "btn btn-ghost-2" %>
-          <%= link_to edit_course_path(course) do %>
+          <%= link_to edit_course_path(course), class: "btn" do %>
             <i class="fa-solid fa-pen-to-square text-secondary"></i>
           <% end %>
           <%= link_to course_path(course),
+            class: "btn",
             data: { "turbo-method": :delete,
             turbo_confirm: "Are you sure you want to delete this course?" } do %>
             <i class="fa-solid fa-trash-can text-secondary"></i>
