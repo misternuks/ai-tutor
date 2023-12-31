@@ -19,10 +19,10 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
-    @course.user = @user
+    @course.user = current_user
 
     if @course.save
-      redirect_to @course
+      redirect_to courses_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -46,7 +46,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @course.destroy
 
-    redirect_to root_path, status: :see_other
+    redirect_to courses_path, status: :see_other
   end
 
   private
