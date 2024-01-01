@@ -1,8 +1,9 @@
-<div class="container p-3">
-  <div class="card p-3 m-3">
+<div class="container">
+  <div class="display-card mt-3">
+    <h1 class="text-center">New Chatroom Form</h1>
     <%= simple_form_for [@lesson, @chatroom] do |f| %>
-      <%= f.input :name %>
-      <%= f.button :submit, class: "btn btn-primary" %>
+      <%= f.input :name, label: 'Name your chatroom:', input_html: { class: "form-field" } %>
+      <%= f.button :submit, class: "btn btn-gradient" %>
     <% end %>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="display-card mt-3">
-    <h1 class="text-center">New Lesson Form</h1>
-    <%= simple_form_for [@unit, @lesson] do |f| %>
+    <h1 class="text-center">Edit Lesson Form</h1>
+    <%= simple_form_for [@lesson] do |f| %>
       <%= f.input :name, label: 'Type the lesson name:', input_html: { class: "form-field" } %>
       <%= f.input :details, label: 'Describe the lesson in detail:', input_html: { class: "form-field" } %>
       <%= f.button :submit, class: "btn btn-gradient" %>

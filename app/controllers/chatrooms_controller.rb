@@ -38,6 +38,13 @@ class ChatroomsController < ApplicationController
     end
   end
 
+  def destroy
+    @chatroom = Chatroom.find(params[:id])
+    @lesson = @chatroom.lesson
+    @chatroom.destroy
+    redirect_to lesson_path(@lesson), status: :see_other
+  end
+
   private
 
   def chatroom_params

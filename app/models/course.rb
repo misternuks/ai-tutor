@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
   belongs_to :user
-  has_many :units
+  has_many :units, dependent: :destroy
   validates :name, presence: true
   # accepts_nested_attributes_for :units
 end

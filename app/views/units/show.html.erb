@@ -1,8 +1,28 @@
-<div class="container p-3">
-  <h1 class="text-center">Here are the lessons for the <%= @unit.name %> unit:</h1>
-  <div class="m-3 d-flex flex-column align-items-center gap-1">
-    <% @unit.lessons.each do |lesson| %>
-      <%= link_to lesson.name, lesson_path(lesson), class: "btn btn-primary w-50" %>
-    <% end %>
+<div class="p-3 m-3 d-flex flex-column align-items-center justify-content-center">
+  <div class="display-card m-3">
+    <h3 class="text-center"><%= @unit.course.name %>: <%= @unit.name %></h3>
+    <hr>
+    <h5>Unit Details</h5>
+    <p><%= @unit.details %></p>
+    <hr>
+    <h5>Current Lessons</h5>
+    <ol class="list-group">
+      <% @unit.lessons.each do |lesson| %>
+        <li class="list-group-item w-auto">
+          <%= link_to lesson.name, lesson_path(lesson), class: "btn btn-ghost-2" %>
+          <%= link_to edit_lesson_path(lesson), class: "btn" do %>
+            <i class="fa-solid fa-pen-to-square text-secondary"></i>
+          <% end %>
+          <%= link_to lesson_path(lesson),
+            class: "btn",
+            data: { "turbo-method": :delete,
+            turbo_confirm: "Are you sure you want to delete this lesson?" } do %>
+            <i class="fa-solid fa-trash-can text-secondary"></i>
+          <% end %>
+        </li>
+      <% end %>
+      <hr>
+      <%= link_to "+ Add a new lesson for this unit", new_unit_lesson_path(@unit), class: "btn btn-ghost-2" %>
+    </ol>
   </div>
 </div>
