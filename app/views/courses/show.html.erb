@@ -1,11 +1,22 @@
-<div class="container p-3">
-  <div class="display-card">
-    <h5 class="text-center"><%= @course.name %> Units</h5>
-    <div class="m-3 d-flex flex-column align-items-center gap-1">
-      <% @course.units.each do |unit| %>
-        <%= link_to unit.name, unit_path(unit), class: "btn btn-ghost w-50" %>
-      <% end %>
-      <%= link_to "Create a new unit", new_course_unit_path(@course), class: "btn btn-ghost-2 w-50 mt-3"  %>
-    </div>
-  </div>
+<div class="display-card mt-3">
+  <h1 class="text-center"><%= @course.name %></h1>
+  <h5>Current units:</h5>
+  <ol class="list-group">
+    <% @course.units.each do |unit| %>
+      <li class="list-group-item w-auto">
+        <%= link_to unit.name, unit_path(unit), class: "btn btn-ghost-2" %>
+        <%= link_to edit_unit_path(unit), class: "btn" do %>
+          <i class="fa-solid fa-pen-to-square text-secondary"></i>
+        <% end %>
+        <%= link_to unit_path(unit),
+            class: "btn",
+            data: { "turbo-method": :delete,
+            turbo_confirm: "Are you sure you want to delete this unit?" } do %>
+          <i class="fa-solid fa-trash-can text-secondary"></i>
+        <% end %>
+      </li>
+    <% end %>
+    <hr>
+    <%= link_to "+ Add a new unit for this course", new_course_unit_path(@course), class: "btn btn-ghost-2" %>
+  </ol>
 </div>
