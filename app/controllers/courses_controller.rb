@@ -36,7 +36,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
 
     if @course.update(course_params)
-      redirect_to courses_path
+      redirect_to course_path(@course)
     else
       render :edit, status: :unprocessable_entity
     end

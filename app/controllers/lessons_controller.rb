@@ -36,7 +36,7 @@ class LessonsController < ApplicationController
     @unit = @lesson.unit
 
     if @lesson.update(lesson_params)
-      redirect_to unit_path(@unit)
+      redirect_to lesson_path(@lesson)
     else
       render :edit, status: :unprocessable_entity
     end

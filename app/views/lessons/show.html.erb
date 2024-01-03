@@ -1,25 +1,25 @@
 <div class="p-3 m-3 d-flex flex-column align-items-center justify-content-center">
-  <div class="display-card m-3">
-    <h3 class="text-center"><%= @lesson.unit.course.name %>: <%= @lesson.unit.name %>: <%= @lesson.name %></h3>
-    <hr>
-    <h5 class="">Lesson Details</h5>
-    <p><%= @lesson.details %></p>
-    <hr>
-    <h5>Current Chatrooms</h5>
-    <ol class="list-group">
-      <% @lesson.chatrooms.each do |chatroom| %>
-        <li class="list-group-item w-auto">
-          <%= link_to chatroom.name, chatroom_path(chatroom), class: "btn btn-ghost-2" %>
-          <%= link_to chatroom_path(chatroom),
+  <div class="display-card">
+    <div class="d-flex justify-content-center align-items-center">
+      <h3 class="text-center m-0"><%= @lesson.unit.course.name %>: <%= @lesson.unit.name %>: <%= @lesson.name %></h3>
+      <%= link_to edit_lesson_path(@lesson), class: "btn" do %>
+        <i class="fa-solid fa-pen-to-square text-secondary"></i>
+      <% end %>
+      <%= link_to lesson_path(@lesson),
             class: "btn",
             data: { "turbo-method": :delete,
-            turbo_confirm: "Are you sure you want to delete this chatroom?" } do %>
-            <i class="fa-solid fa-trash-can text-secondary"></i>
-          <% end %>
-        </li>
+            turbo_confirm: "Are you sure you want to delete this lesson?" } do %>
+        <i class="fa-solid fa-trash-can text-secondary"></i>
       <% end %>
-      <hr>
-      <%= link_to "+ Add a new chatroom for this lesson", new_lesson_chatroom_path(@lesson), class: "btn btn-ghost-2" %>
-    </ol>
+    </div>
+    <hr>
+    <h5 class="m-0">Lesson Details</h5>
+    <small>Include lecture notes, lesson plans, descriptions of / links to homework, and so on.</small>
+    <p class="border rounded bg-light mt-3 p-3"><%= @lesson.details %></p>
   </div>
+</div>
+<div class="d-flex align-items-center justify-content-center flex">
+  <%= link_to "< Back to courses", courses_path, class: "btn btn-ghost-2 h1" %>
+  <%= link_to "< Back to units", course_path(@lesson.unit.course), class: "btn btn-ghost-2 h1" %>
+  <%= link_to "< Back to lessons", unit_path(@lesson.unit), class: "btn btn-ghost-2 h1" %>
 </div>
