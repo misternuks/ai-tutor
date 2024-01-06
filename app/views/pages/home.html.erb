@@ -3,7 +3,7 @@
     <h1>Welcome to KUIS TutorAI</h1>
     <p>Your 24/7 Study Buddy</p>
     <% if user_signed_in? %>
-      <%= link_to "Go to your courses", courses_path, class: "btn btn-gradient" %>
+      <%= link_to "Go to the courses", courses_path, class: "btn btn-gradient" %>
     <% else %>
       <%= link_to "Log in or sign up", new_user_session_path, class: "btn btn-gradient" %>
     <% end %>

@@ -2,7 +2,9 @@
   <div class="bg-light p-3">
     <h5>Your chats for <%= @lesson.name %></h5>
     <% @lesson.chatrooms.each do |chatroom| %>
-      <%= link_to chatroom.name, chatroom_path(chatroom), class: "btn btn-gradient w-100 mb-1" %>
+      <% if @user.chatrooms.include? chatroom %>
+        <%= link_to chatroom.name, chatroom_path(chatroom), class: "btn btn-gradient w-100 mb-1" %>
+      <% end %>
     <% end %>
     <%= link_to "+ New chat", new_lesson_chatroom_path(@lesson), class: "btn btn-ghost-2 mt-1 w-100"  %>
   </div>
