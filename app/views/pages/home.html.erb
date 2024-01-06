@@ -12,3 +12,24 @@
 <div class="container mt-3">
   <p class="text-end">Problems? <a href="mailto:euan.bonner@gmail.com">Contact the administrator.</a></p>
 </div>
+<% if user_signed_in? && current_user.admin? %>
+  <div class="container">
+    <h3>For Administrators</h3>
+    <h5>User list</h5>
+    <ul class="list-group gap-1">
+      <% User.all.each do |user| %>
+        <li class="list-group-item">
+          <%= user.username %>
+          <%= user.email %>
+          <% if user.instructor? %>
+            <strong>Instructor</strong>
+          <% elsif user.admin? %>
+            <strong class="text-primary">Admin</strong>
+          <% elsif user.username == "AI Assistant" %>
+            <strong class="text-danger">The AI Model</strong>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
