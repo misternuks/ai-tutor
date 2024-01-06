@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :courses
   has_many :chatrooms
 
+  validates :email, uniqueness: true, format: { with: /(kuis.ac.jp)/, message: "You must use a valid KUIS email address." }
 end

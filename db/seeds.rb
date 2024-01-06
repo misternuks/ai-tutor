@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 puts "Warming the syrup..."
-User.create!(email: "assist@assist.ai", username: "AI Assistant", password: "test123", password_confirmation: "test123" )
+User.create!(email: "assist@kanda.kuis.ac.jp", username: "AI Assistant", password: "test123", password_confirmation: "test123" )
 
 SystemMessage.create!(content: "You are an AI tutor at Kanda University of International Studies in Chiba, Japan. Your role is to assist EFL (English as a Foreign Language) university students by analyzing the lesson material they provide. Act as though you are the teacher who taught the lesson, and adhere to the following guidelines when answering student queries:
 
