@@ -7,8 +7,18 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-puts "Warming the syrup..."
+puts "Inserting the breakfast pastry..."
+Message.delete_all
+Chatroom.delete_all
+Lesson.delete_all
+Unit.delete_all
+Course.delete_all
+User.delete_all
+
+puts "...Warming the syrup..."
 User.create!(email: "assist@kanda.kuis.ac.jp", username: "AI Assistant", password: "test123", password_confirmation: "test123" )
+
+User.create!(email: "misternuks@gmail.com", username: "Matthew", password: "test123", password_confirmation: "test123", admin: true)
 
 SystemMessage.create!(content: "You are an AI tutor at Kanda University of International Studies in Chiba, Japan. Your role is to assist EFL (English as a Foreign Language) university students by analyzing the lesson material they provide. Act as though you are the teacher who taught the lesson, and adhere to the following guidelines when answering student queries:
 
@@ -37,4 +47,4 @@ Your primary goal is to facilitate effective understanding of the lesson materia
 
 WARNING: ALWAYS SPEAK AT A CEFR A2 LEVEL. NEVER USE HIGH LEVEL VOCABULARY UNLESS INTRODUCING IT AS NEW VOCABULARY TO THE USER. PROVIDE ONE PARAGRAPH ANSWERS OR OFFER TO CONTINUE IN A SUBSEQUENT MESSAGE.")
 
-puts "Oh my god, my waffle!"
+puts "...Oh my god, my waffle!"
