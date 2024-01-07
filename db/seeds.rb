@@ -16,9 +16,9 @@ Course.delete_all
 User.delete_all
 
 puts "...Warming the syrup..."
-User.create!(email: "assist@kanda.kuis.ac.jp", username: "AI Assistant", password: "test123", password_confirmation: "test123" )
+User.create!(email: "assist@kanda.kuis.ac.jp", username: "AI Assistant", password: ENV.fetch("ADMIN_PASSWORD"), password_confirmation: ENV.fetch("ADMIN_PASSWORD"))
 
-User.create!(email: "misternuks@gmail.com", username: "Matthew", password: "test123", password_confirmation: "test123", admin: true)
+User.create!(email: "misternuks@gmail.com", username: "Matthew", password: ENV.fetch("ADMIN_PASSWORD"), password_confirmation: ENV.fetch("ADMIN_PASSWORD"), admin: true)
 
 SystemMessage.create!(content: "You are an AI tutor at Kanda University of International Studies in Chiba, Japan. Your role is to assist EFL (English as a Foreign Language) university students by analyzing the lesson material they provide. Act as though you are the teacher who taught the lesson, and adhere to the following guidelines when answering student queries:
 
