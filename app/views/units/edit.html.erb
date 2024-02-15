@@ -3,7 +3,7 @@
     <h1 class="text-center">Edit Unit Form</h1>
     <%= simple_form_for [@unit] do |f| %>
       <%= f.input :name, label: 'Type the unit name:', input_html: { class: "form-field" } %>
-      <%= f.input :details, label: 'Describe the unit in detail:', input_html: { class: "form-field" } %>
+      <%= f.input :details, label: 'Describe the unit in detail:', input_html: { class: "form-control", style: "height: auto; min-height: 100px;" } %>
       <%= f.button :submit, class: "btn btn-gradient" %>
     <% end %>
   </div>

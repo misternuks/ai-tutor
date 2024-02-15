@@ -3,7 +3,7 @@
     <h1 class="text-center">Edit Course Form</h1>
     <%= simple_form_for [@course] do |f| %>
       <%= f.input :name, label: 'Type the course name:', input_html: { class: "form-field" } %>
-      <%= f.input :details, label: 'Describe the course in detail:', input_html: { class: "form-field" } %>
+      <%= f.input :details, label: 'Describe the course in detail:', input_html: { class: "form-control", style: "height: auto; min-height: 100px;" }  %>
       <%= f.button :submit, class: "btn btn-gradient" %>
     <% end %>
   </div>
