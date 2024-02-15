@@ -14,7 +14,13 @@ export default class extends Controller {
     }
     )
     console.log(`Subscribe to the chatroom with the id ${this.chatroomIdValue}.`)
+    this.scrollToBottomOnLoad();
   }
+
+  scrollToBottomOnLoad() {
+    this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight);
+  }
+
   #insertMessageAndScrollDown(data) {
     const currentUserIsSender = this.currentUserIdValue === data.sender_id
     const messageElement = this.#buildMessageElement(currentUserIsSender, data.message)
