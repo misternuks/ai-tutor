@@ -1,8 +1,9 @@
 .course-menu {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 4px;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 }
 
@@ -12,14 +13,6 @@
   border-radius: 8px;
 }
 
-@media (max-width: 800px) {
-  .course-menu {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
 .course-menu .btn, .course-menu-item {
-  width: 100%;
+  width: 320px;
 }
