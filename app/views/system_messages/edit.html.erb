@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="display-card mt-3">
+    <h1 class="text-center">Edit System Message Form</h1>
+    <%= simple_form_for [@system_message] do |f| %>
+      <%= f.input :content, label: 'Fully detail the system message to be sent to Open AI:', input_html: { class: "form-control", style: "height: auto; min-height: 500px;" }  %>
+      <%= f.button :submit, class: "btn btn-gradient" %>
+    <% end %>
+  </div>
+</div>

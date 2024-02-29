@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   #   get :chatrooms, on: :member
   # end
 
-
+  resources :system_messages, only: %i[show edit update]
 
   resources :courses, shallow: true do
     resources :units

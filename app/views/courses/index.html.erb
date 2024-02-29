@@ -29,4 +29,32 @@
       </div>
     </div>
   <% end %>
+  <% if user_signed_in? && current_user.admin? %>
+    <div class="display-card mt-3">
+      <h1 class="text-center">For Administrators</h1>
+      <h5>User list</h5>
+      <div class="d-flex flex-column align-items-center justify-content-center gap-1">
+        <ul class="list-group gap-1">
+          <% User.all.each do |user| %>
+            <li class="list-group-item">
+              <%= user.username %>
+              <%= user.email %>
+              <% if user.instructor? %>
+                <strong>Instructor</strong>
+              <% elsif user.admin? %>
+                <strong class="text-primary">Admin</strong>
+              <% elsif user.username == "AI Assistant" %>
+                <strong class="text-danger">The AI Model</strong>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <hr>
+      <h5>System Message</h5>
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <%= link_to "View or Edit the System Message", system_message_path(SystemMessage.last), class: "btn btn-gradient w-100" %>
+      </div>
+    </div>
+  <% end %>
 </div>

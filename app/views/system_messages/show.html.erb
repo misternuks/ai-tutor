@@ -1,0 +1,14 @@
+<div class="p-3 m-3 d-flex flex-column align-items-center justify-content-center">
+  <div class="display-card">
+    <div class="d-flex justify-content-center align-items-center">
+      <h3 class="text-center m-0">KUIS AI Tutor System Message</h3>
+      <%= link_to edit_system_message_path(@system_message), class: "btn" do %>
+        <i class="fa-solid fa-pen-to-square text-secondary"></i>
+      <% end %>
+    </div>
+    <hr>
+    <h5 class="m-0">Current System Message Details</h5>
+    <small>This information will be sent to Open AI via an API call when the user sends a chat message.</small>
+    <p class="border rounded bg-light mt-3 p-3"><%= @system_message.content %></p>
+  </div>
+</div>
