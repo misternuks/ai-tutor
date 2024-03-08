@@ -36,7 +36,7 @@ class ChatroomsController < ApplicationController
     @chatroom.user = @user
 
     if @chatroom.save
-      redirect_to @chatroom
+      redirect_to lesson_chatrooms_path(@lesson)
     else
       render :new, status: :unprocessable_entity
     end
@@ -46,7 +46,7 @@ class ChatroomsController < ApplicationController
     @chatroom = Chatroom.find(params[:id])
     @lesson = @chatroom.lesson
     @chatroom.destroy
-    redirect_to lesson_path(@lesson), status: :see_other
+    redirect_to lesson_chatrooms_path(@lesson), status: :see_other
   end
 
   private
