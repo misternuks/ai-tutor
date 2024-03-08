@@ -5,7 +5,7 @@
     </div>
     <hr>
     <div class="d-flex flex-column justify-content-center align-items-center gap-1">
-      <% @lesson.chatrooms.each do |chatroom| %>
+      <% @lesson.chatrooms.order(:created_at).reverse.each do |chatroom| %>
         <% if @user.chatrooms.include? chatroom %>
           <div class="d-flex align-self-stretch align-items-center justify-content-start">
             <%= link_to chatroom.name, chatroom_path(chatroom), class: "btn btn-gradient w-100 mb-1" %>
