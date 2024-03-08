@@ -53,7 +53,7 @@ class MessagesController < ApplicationController
   # Replace with actual system user fetching logic
   def system_user
     # Assuming you have a system user or bot user for AI responses
-    User.find_by(username: "AI Assistant")
+    User.find_by(username: "assistant")
   end
 
   def handle_ai_response

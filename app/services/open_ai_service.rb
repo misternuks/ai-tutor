@@ -18,6 +18,7 @@ class OpenAiService
         messages: [
           { role: "system", content: system_message },
           { role: "user", content: format_context(course_details, unit_details, lesson_details) },
+          { role: "assistant", content: ""},
           *messages
         ]
       }

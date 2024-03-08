@@ -16,7 +16,7 @@ Course.delete_all
 User.delete_all
 
 puts "...Warming the syrup..."
-User.create!(email: "assist@kanda.kuis.ac.jp", username: "AI Assistant", password: ENV.fetch("ADMIN_PASSWORD"), password_confirmation: ENV.fetch("ADMIN_PASSWORD"))
+User.create!(email: "assist@kanda.kuis.ac.jp", username: "assistant", password: ENV.fetch("ADMIN_PASSWORD"), password_confirmation: ENV.fetch("ADMIN_PASSWORD"))
 
 User.create!(email: "misternuks@gmail.com", username: "Matthew", password: ENV.fetch("ADMIN_PASSWORD"), password_confirmation: ENV.fetch("ADMIN_PASSWORD"), admin: true)
 

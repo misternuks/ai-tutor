@@ -1,5 +1,5 @@
 <div id="message-<%= message.id %>">
-  <strong><%= message.user.username %></strong>
+  <strong><%= message.user.username.capitalize %></strong>
   <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
   <p><%= message.content %></p>
 </div>
