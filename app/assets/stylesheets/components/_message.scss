@@ -10,7 +10,12 @@
   max-width: 1600px;
   border-radius: 16px;
   padding: 6px;
-  min-height: 80px;
+  // min-height: 80px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.sender-style p, .receiver-style p {
+  margin: 0;
 }
 
 .sender-style {
