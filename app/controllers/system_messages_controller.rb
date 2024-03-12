@@ -18,5 +18,8 @@ class SystemMessagesController < ApplicationController
     end
 
   end
-
+  private
+  def system_message_params
+    params.require(:system_message).permit(:content)
+  end
 end
