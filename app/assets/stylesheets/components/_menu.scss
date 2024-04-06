@@ -14,5 +14,11 @@
 }
 
 .course-menu .btn, .course-menu-item {
-  width: 320px;
+  width: 100%;
+}
+
+@media (min-width: 1000px) {
+  .course-menu .btn, .course-menu-item {
+    width: 320px;
+  }
 }
