@@ -1,5 +1,9 @@
 class MessagesController < ApplicationController
 
+  def index
+    @messages = Message.all
+  end
+
   def create
     @chatroom = Chatroom.find(params[:chatroom_id])
     @message = Message.new(message_params)
@@ -61,7 +65,8 @@ class MessagesController < ApplicationController
     ai_content = OpenAiService.chat(@message.content, context)
 
     if ai_content
-      ai_message = Message.create(chatroom: @chatroom, user: system_user, content: ai_content)
+      #ai_message =
+      Message.create(chatroom: @chatroom, user: system_user, content: ai_content)
     else
       Rails.logger.error("OpenAI Error: Response was empty or invalid.")
       nil

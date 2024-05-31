@@ -33,4 +33,6 @@ Rails.application.routes.draw do
     resources :messages, only: :create
   end
 
+  resources :messages, only: %i[index show]
+
 end

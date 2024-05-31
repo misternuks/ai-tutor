@@ -17,7 +17,7 @@
       <% end %>
     </div>
   </div>
-  <% if current_user.admin? || current_user.instructor? %>
+  <% if current_user.admin || current_user.instructor %>
     <div class="display-card mt-3">
       <h1 class="text-center">For instructors</h1>
       <h5>Current courses:</h5>
@@ -29,9 +29,13 @@
       </div>
     </div>
   <% end %>
-  <% if user_signed_in? && current_user.admin? %>
+  <% if user_signed_in? && current_user.admin %>
     <div class="display-card mt-3">
       <h1 class="text-center">For Administrators</h1>
+      <div class="d-flex flex-column align-items-center justify-content-center gap-1">
+        <%= link_to "All chats", chatrooms_path, class: "btn btn-gradient w-100 mt-3" %>
+        <%= link_to "All messages", messages_path, class: "btn btn-gradient w-100 mt-3" %>
+      </div>
       <h5>User list</h5>
       <div class="d-flex flex-column align-items-center justify-content-center gap-1">
         <ul class="list-group gap-1">

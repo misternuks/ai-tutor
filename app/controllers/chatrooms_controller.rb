@@ -2,8 +2,12 @@ class ChatroomsController < ApplicationController
 
   def index
     @user = current_user
-    @lesson = Lesson.find(params[:lesson_id])
-    @chatrooms = @lesson.chatrooms
+    if @user.admin
+      @chatrooms = Chatroom.all
+    else
+      @lesson = Lesson.find(params[:lesson_id])
+      @chatrooms = @lesson.chatrooms
+    end
   end
 
   def show
