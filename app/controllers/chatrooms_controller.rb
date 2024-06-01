@@ -24,16 +24,14 @@ class ChatroomsController < ApplicationController
 
   def new
     @user = current_user
-    @chatroom = Chatroom.new
     @lesson = Lesson.find(params[:lesson_id])
+    @chatroom = Chatroom.new(name: "Chatroom for #{@lesson.name} #{@lesson.chatrooms.count}", lesson: @lesson, user: @user)
   end
 
   def create
     @lesson = Lesson.find(params[:lesson_id])
     @user = current_user
-    @chatroom = Chatroom.new(chatroom_params)
-    @chatroom.lesson = @lesson
-    @chatroom.user = @user
+    @chatroom = Chatroom.new(name: "Chatroom for #{@lesson.name} #{@lesson.chatrooms.count}", lesson: @lesson, user: @user)
 
     if @chatroom.save
       redirect_to lesson_chatrooms_path(@lesson)
