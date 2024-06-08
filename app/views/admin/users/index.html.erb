@@ -1,0 +1,32 @@
+<div class="p-3">
+  <h1 class="text-center mb-3">Manage Users</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Username</th>
+        <th scope="col">Instructor</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.username %></td>
+          <td><%= user.instructor ? 'Yes' : 'No' %></td>
+          <td>
+            <%= link_to 'Toggle Instructor',
+            toggle_instructor_admin_user_path(user),
+            data: { "turbo-method": :patch,
+            turbo_confirm: 'Are you sure you want to change this instructor?' }
+          %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="d-flex align-items-center justify-content-center ">
+  <%= link_to "< Back to courses", courses_path, class: "btn btn-ghost-2 h1" %>
+</div>

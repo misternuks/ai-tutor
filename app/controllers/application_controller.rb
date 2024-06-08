@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token, if: :json_request?
 
+  private
+
+  def ensure_admin!
+    redirect_to(root_path, alert: "You are not authorized to perform this action.") unless current_user.admin?
+  end
+
   protected
 
   def configure_permitted_parameters

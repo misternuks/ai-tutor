@@ -15,6 +15,14 @@ Rails.application.routes.draw do
   #   get :chatrooms, on: :member
   # end
 
+  namespace :admin do
+    resources :users, only: [:index] do
+      member do
+        patch :toggle_instructor
+      end
+    end
+  end
+
   resources :system_messages, only: %i[show edit update]
 
   resources :courses, shallow: true do
