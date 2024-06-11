@@ -1,6 +1,6 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(http://source.unsplash.com/random/?student%20on%20computer);">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path('computer.jpg') %>);">
   <div class="container">
-    <h1>Welcome to KUIS TutorAI</h1>
+    <h1>Welcome to KUIS Tutor AI</h1>
     <p>Your 24/7 Study Buddy</p>
     <% if user_signed_in? %>
       <%= link_to "Go to the courses", courses_path, class: "btn btn-gradient" %>
