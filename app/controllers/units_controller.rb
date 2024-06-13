@@ -1,4 +1,6 @@
-class UnitsController < ApplicationController
+class UnitsController < AuthenticationsController
+  skip_before_action :ensure_instructor_or_admin!, only: [:index]
+
   def index
     @course = Course.find(params[:course_id])
     @units = @course.units

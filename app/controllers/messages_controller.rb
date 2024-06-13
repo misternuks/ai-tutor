@@ -1,4 +1,5 @@
-class MessagesController < ApplicationController
+class MessagesController < AuthenticationsController
+  skip_before_action :ensure_instructor_or_admin!, only: [:create]
 
   def index
     @messages = Message.all

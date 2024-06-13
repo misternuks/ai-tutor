@@ -1,4 +1,5 @@
 class SystemMessagesController < ApplicationController
+  before_action :ensure_admin!
 
   def show
     @system_message = SystemMessage.last

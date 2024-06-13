@@ -1,4 +1,6 @@
 class SettingsController < ApplicationController
+  before_action :ensure_admin!
+
   def index
     @setting = Setting.find_by(key: 'openai_model')
   end

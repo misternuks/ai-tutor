@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     redirect_to(root_path, alert: "You are not authorized to perform this action.") unless current_user.admin?
   end
 
+  def ensure_instructor_or_admin!
+    redirect_to(root_path, alert: "You are not authorized to perform this acdtion.") unless current_user.instructor? || current_user.admin?
+  end
+
   protected
 
   def configure_permitted_parameters

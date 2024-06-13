@@ -1,4 +1,5 @@
-class ChatroomsController < ApplicationController
+class ChatroomsController < AuthenticationsController
+  skip_before_action :ensure_instructor_or_admin!
 
   def index
     @user = current_user

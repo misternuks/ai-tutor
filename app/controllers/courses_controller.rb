@@ -1,4 +1,5 @@
-class CoursesController < ApplicationController
+class CoursesController < AuthenticationsController
+  skip_before_action :ensure_instructor_or_admin!, only: [:index]
 
   def index
     @courses = Course.all
