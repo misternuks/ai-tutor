@@ -43,4 +43,6 @@ Rails.application.routes.draw do
 
   resources :messages, only: %i[index show]
 
+  resources :settings, only: %i[index create update]
+
 end

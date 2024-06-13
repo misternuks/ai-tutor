@@ -1,0 +1,11 @@
+<div class="m-3 d-flex justify-content-center ">
+  <div class="display-card p-3" style="max-width: 400px">
+    <%= form_with url: settings_path, method: :post do %>
+      <div class="form-group">
+        <label class="h5" for="openai_model">Select OpenAI Model</label>
+        <%= select_tag 'openai_model', options_for_select(OpenAiService::VALID_MODELS.map { |model| [model, model] }, @setting&.value), class: 'form-control form-select' %>
+      </div>
+      <%= submit_tag 'Save', class: 'btn btn-gradient mt-3' %>
+    <% end %>
+  </div>
+</div>

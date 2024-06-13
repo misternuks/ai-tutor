@@ -1,6 +1,9 @@
 require 'openai'
 
 class OpenAiService
+
+  VALID_MODELS = ['gpt-3.5-turbo', 'gpt-4']
+
   def self.chat(message, context)
     client = OpenAI::Client.new
 
@@ -12,9 +15,12 @@ class OpenAiService
 
     messages = format_messages(previous_messages, message)
 
+    model = Setting.find_by(key: 'openai_model')&.value
+    model = VALID_MODELS.include?(model) ? model : 'gpt-3.5-turbo'
+
     response = client.chat(
       parameters: {
-        model: "gpt-3.5-turbo", # Change this to gpt-4 later
+        model: model,
         messages: [
           { role: "system", content: system_message },
           { role: "user", content: format_context(course_details, unit_details, lesson_details) },
