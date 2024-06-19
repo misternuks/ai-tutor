@@ -2,7 +2,7 @@ require 'openai'
 
 class OpenAiService
 
-  VALID_MODELS = ['gpt-3.5-turbo', 'gpt-4']
+  VALID_MODELS = ['gpt-3.5-turbo', 'gpt-4', 'gpt-4o']
 
   def self.chat(message, context)
     client = OpenAI::Client.new
