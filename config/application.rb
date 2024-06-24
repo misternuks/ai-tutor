@@ -26,7 +26,8 @@ module AiTutor
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    config.time_zone = "Asia/Tokyo"
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
