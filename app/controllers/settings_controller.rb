@@ -2,38 +2,37 @@ class SettingsController < ApplicationController
   before_action :ensure_admin!
 
   def index
-    @setting = Setting.find_by(key: 'openai_model')
+    @openai_model = Setting.find_by(key: 'openai_model')&.value
+    @openai_enabled = Setting.find_by(key: 'openai_enabled')&.value == 'true'
   end
 
   def create
-    setting = Setting.find_or_initialize_by(key: 'openai_model')
-    setting.value = params[:openai_model]
-    if OpenAiService::VALID_MODELS.include?(setting.value)
-      if setting.save
-        redirect_to settings_path, notice: 'Model updated successfully.'
-      else
-        redirect_to settings_path, alert: 'Failed to update model.'
-      end
-    else
-      redirect_to settings_path, alert: 'Invalid model selected.'
-    end
+    update_openai_model(params[:openai_model]) if params[:openai_model].present?
+    update_openai_enabled(params[:openai_enabled])
+    redirect_to settings_path, notice: 'Settings updated successfully.'
   end
 
   def update
-    setting = Setting.find_by(key: 'openai_model')
-    if setting
-      setting.value = params[:openai_model]
-      if OpenAiService::VALID_MODELS.include?(setting.value)
-        if setting.save
-          redirect_to settings_path, notice: 'Model updated successfully.'
-        else
-          redirect_to settings_path, alert: 'Failed to update model.'
-        end
-      else
-        redirect_to settings_path, alert: 'Invalid model selected.'
-      end
+    update_openai_model(params[:openai_model]) if params[:openai_model].present?
+    update_openai_enabled(params[:openai_enabled])
+    redirect_to settings_path, notice: 'Settings updated successfully.'
+  end
+
+  private
+
+  def update_openai_model(model)
+    setting = Setting.find_or_initialize_by(key: 'openai_model')
+    if OpenAiService::VALID_MODELS.include?(model)
+      setting.value = model
+      setting.save
     else
-      create
+      redirect_to settings_path, alert: 'Invalid model selected.' and return
     end
+  end
+
+  def update_openai_enabled(enabled)
+    setting = Setting.find_or_initialize_by(key: 'openai_enabled')
+    setting.value = (enabled == 'true').to_s
+    setting.save
   end
 end

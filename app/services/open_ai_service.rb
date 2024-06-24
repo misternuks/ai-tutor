@@ -1,10 +1,14 @@
-require 'openai'
-
 class OpenAiService
-
   VALID_MODELS = ['gpt-3.5-turbo', 'gpt-4', 'gpt-4o']
 
   def self.chat(message, context)
+    # Check the kill switch setting
+    openai_enabled = Setting.find_by(key: 'openai_enabled')&.value == 'true'
+
+    unless openai_enabled
+      return "Sorry, the KUIS Tutor AI chat service is currently disabled."
+    end
+
     client = OpenAI::Client.new
 
     system_message = context[:system_message]
