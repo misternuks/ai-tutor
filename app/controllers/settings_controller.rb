@@ -22,12 +22,9 @@ class SettingsController < ApplicationController
 
   def update_openai_model(model)
     setting = Setting.find_or_initialize_by(key: 'openai_model')
-    if OpenAiService::VALID_MODELS.include?(model)
-      setting.value = model
-      setting.save
-    else
-      redirect_to settings_path, alert: 'Invalid model selected.' and return
-    end
+    setting.value = model
+    setting.save
+
   end
 
   def update_openai_enabled(enabled)

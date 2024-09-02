@@ -1,5 +1,5 @@
 class OpenAiService
-  VALID_MODELS = ['gpt-3.5-turbo', 'gpt-4', 'gpt-4o']
+  # VALID_MODELS = ['gpt-3.5-turbo', 'gpt-4', 'gpt-4o']
 
   def self.chat(message, context)
     # Check the kill switch setting
@@ -20,7 +20,7 @@ class OpenAiService
     messages = format_messages(previous_messages, message)
 
     model = Setting.find_by(key: 'openai_model')&.value
-    model = VALID_MODELS.include?(model) ? model : 'gpt-3.5-turbo'
+    model = model.present? ? model : 'gpt-3.5-turbo'
 
     response = client.chat(
       parameters: {

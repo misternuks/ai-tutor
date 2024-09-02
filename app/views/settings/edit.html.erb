@@ -1,7 +1,9 @@
 <%= form_with url: settings_path, method: :post do %>
   <div class="form-group">
-    <label for="openai_model">Select OpenAI Model</label>
-    <%= select_tag 'openai_model', options_for_select(OpenAiService::VALID_MODELS.map { |model| [model, model] }, Setting.find_by(key: 'openai_model')&.value), class: 'form-control' %>
+    <label for="openai_model">OpenAI Model</label>
+    <%= text_field_tag 'openai_model',
+      Setting.find_by(key: 'openai_model')&.value, class: 'form-control'
+    %>
   </div>
   <%= submit_tag 'Save', class: 'btn btn-primary' %>
 <% end %>

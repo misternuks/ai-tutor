@@ -3,13 +3,15 @@
     <h1 class="card-header text-center">Settings</h1>
     <%= form_with url: settings_path, method: :post, class: "card-body" do %>
       <div class="mb-3">
-        <%= label_tag :openai_model, 'Select OpenAI Model', class: "form-label" %>
-        <%= select_tag :openai_model, options_for_select(OpenAiService::VALID_MODELS, @openai_model), class: "form-select" %>
+        <%= label_tag :openai_model, 'OpenAI Model', class: "form-label" %>
+        <%= text_field_tag :openai_model, @openai_model, class: "form-control" %>
       </div>
       <div class="form-check form-switch">
         <%= label_tag :openai_enabled, 'Enable OpenAI', class: "form-label" %>
-        <%= hidden_field_tag :openai_enabled, 'false' %> <!-- Add this line -->
-        <%= check_box_tag :openai_enabled, 'true', @openai_enabled, class: "form-check-input" %>
+        <%= hidden_field_tag :openai_enabled, 'false' %>
+        <%= check_box_tag :openai_enabled, 'true', @openai_enabled,
+          class: "form-check-input"
+        %>
       </div>
       <div class="d-flex flex-column align-items-center">
         <%= submit_tag 'Save Settings', class: "btn btn-gradient" %>
