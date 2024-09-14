@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @messages.order(:chatroom_id, created_at: :asc).each do |message| %>
+        <% @messages.each do |message| %>
           <tr>
             <td><%= message.chatroom.lesson.unit.course.name %></td>
             <td><%= message.chatroom.lesson.unit.name %></td>
@@ -26,6 +26,7 @@
         <% end %>
       </tbody>
     </table>
+    <%= paginate @messages, theme: 'bootstrap-5' %>
   <% end %>
 </div>
 <div class="d-flex align-items-center justify-content-center ">

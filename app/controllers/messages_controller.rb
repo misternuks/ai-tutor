@@ -2,7 +2,7 @@ class MessagesController < AuthenticationsController
   skip_before_action :ensure_instructor_or_admin!, only: [:create]
 
   def index
-    @messages = Message.all.order(created_at: :desc)
+    @messages = Message.order(created_at: :desc).page(params[:page]).per(100)
   end
 
   def create
