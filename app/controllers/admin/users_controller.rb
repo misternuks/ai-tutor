@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :ensure_admin!
 
   def index
-    @users = User.all
+    @users = User.order(created_at: :desc).page(params[:page]).per(100)
   end
 
   def toggle_instructor
