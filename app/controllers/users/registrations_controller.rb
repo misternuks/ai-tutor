@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # Instead of super, use this to avoid premature save
     build_resource(sign_up_params)
 
-    if params[:user][:class_code] == "1234"
+    if params[:user][:class_code] == ENV.fetch("INSTRUCTOR_CLASS_CODE")
       resource.instructor = true
       resource.class_code = generate_unique_class_code
     else
