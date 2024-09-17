@@ -4,6 +4,10 @@ class Message < ApplicationRecord
   belongs_to :chatroom
   belongs_to :user
 
+  def sender?(a_user)
+    user.id == a_user.id
+  end
+
   def self.to_csv
     attributes = ['Course Name', 'Unit Name', 'Lesson Name', 'Username', 'Content', 'Created At']
 
