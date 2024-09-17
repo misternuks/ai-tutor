@@ -19,10 +19,10 @@
         <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
-        <%# <%= f.input :instructor,
-                required: false,
-                as: :boolean,
-                label: 'Check this box if you are an instructor.' %>
+        <%= f.input :class_code,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "class-code" } %>
       </div>
       <div class="form-actions">
         <%= f.button :submit, "Sign up", class: "btn btn-gradient w-100" %>

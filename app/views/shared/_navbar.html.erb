@@ -14,11 +14,15 @@
               Logged in as <%= current_user.username %>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" data-controller="logout">
+              <span class="dropdown-item">Class code: <%= current_user.class_code %></span>
               <% if current_user.admin? %>
                 <%= link_to "Settings", settings_path, class: "dropdown-item" %>
               <% end %>
               <%# <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete, action: "logout#clearStorage"}, class: "dropdown-item" %>
+              <hr>
+              <%= link_to "Log out", destroy_user_session_path,
+                data: {turbo_method: :delete, action: "logout#clearStorage"},
+                class: "dropdown-item text-danger" %>
             </div>
           </li>
         <% else %>

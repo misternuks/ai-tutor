@@ -20,6 +20,7 @@
   <% if current_user.admin || current_user.instructor %>
     <div class="display-card mt-3">
       <h1 class="text-center">For Instructors</h1>
+      <h5>Your class code: <%= current_user.class_code ? current_user.class_code : "None assigned (contact your administrator)" %></h5>
       <h5>Current courses:</h5>
       <div class="d-flex flex-column align-items-center justify-content-center gap-1">
         <% @courses.each do |course| %>
