@@ -2,6 +2,7 @@ class CoursesController < AuthenticationsController
   skip_before_action :ensure_instructor_or_admin!, only: [:index]
 
   def index
+    @user = current_user
     @courses = Course.all
     # respond_to do |format|
     #   format.json { render json: @courses }

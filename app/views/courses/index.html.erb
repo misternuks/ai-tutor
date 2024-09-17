@@ -23,7 +23,9 @@
       <h5>Current courses:</h5>
       <div class="d-flex flex-column align-items-center justify-content-center gap-1">
         <% @courses.each do |course| %>
-          <%= link_to course.name, course_path(course), class: "btn btn-gradient w-100" %>
+          <% if @user.courses.include? course %>
+            <%= link_to course.name, course_path(course), class: "btn btn-gradient w-100" %>
+          <% end %>
         <% end %>
         <%= link_to "+ Add a new course", new_course_path, class: "btn btn-ghost w-100 mt-3" %>
       </div>
