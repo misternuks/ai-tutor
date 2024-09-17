@@ -41,7 +41,11 @@ Rails.application.routes.draw do
     resources :messages, only: :create
   end
 
-  resources :messages, only: %i[index show]
+  resources :messages, only: %i[index show] do
+    collection do
+      get :export
+    end
+  end
 
   resources :settings, only: %i[index create update]
 

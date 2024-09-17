@@ -1,8 +1,15 @@
 class MessagesController < AuthenticationsController
   skip_before_action :ensure_instructor_or_admin!, only: [:create]
-
+  before_action :ensure_admin!, only: [:export]
   def index
     @messages = Message.order(created_at: :desc).page(params[:page]).per(100)
+  end
+
+  def export
+    @messages = Message.all
+    respond_to do |format|
+      format.csv { send_data @messages.to_csv, filename: "messages-#{Date.today}.csv" }
+    end
   end
 
   def create

@@ -2,6 +2,7 @@
   <%# <h1 class="text-center mt-3">Messages</h1> %>
   <% if current_user.admin %>
     <h1 class="text-center mb-3">All chat logs for all users</h3>
+    <%= link_to "Download Messages CSV", export_messages_path(format: :csv), class: "btn btn-primary" %>
     <table class="table table-hover">
       <thead>
         <tr>
