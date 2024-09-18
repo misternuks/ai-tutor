@@ -18,13 +18,25 @@ class MessagesController < AuthenticationsController
     @message.chatroom = @chatroom
     @message.user = current_user
 
+    if @chatroom.full?
+      flash[:alert] = "This conversation has reached its maximum length. Please start a new chat."
+      redirect_to chatroom_path(@chatroom)
+      return
+    end
+
     if @message.save
+      @chatroom.check_full!
       broadcast_message(@message)
       ai_response = handle_ai_response
 
       # Broadcast AI response if present
-      broadcast_message(ai_response) if ai_response
+      if ai_response
+        broadcast_message(ai_response)
+        @chatroom.check_full!
+      end
+
       head :ok
+
     else
       render "chatrooms/show", status: :unprocessable_entity
     end
@@ -74,7 +86,9 @@ class MessagesController < AuthenticationsController
 
     if ai_content
       #ai_message =
-      Message.create(chatroom: @chatroom, user: system_user, content: ai_content)
+      ai_message = Message.create(chatroom: @chatroom, user: system_user, content: ai_content)
+      @chatroom.check_full!
+      ai_message
     else
       Rails.logger.error("OpenAI Error: Response was empty or invalid.")
       nil

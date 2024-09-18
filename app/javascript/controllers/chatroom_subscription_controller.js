@@ -15,6 +15,9 @@ export default class extends Controller {
     )
     console.log(`Subscribe to the chatroom with the id ${this.chatroomIdValue}.`)
     this.scrollToBottomOnLoad();
+    if (this.chatroomFullValue) {
+      this.#disableChat()
+    }
   }
 
   scrollToBottomOnLoad() {
@@ -26,6 +29,23 @@ export default class extends Controller {
     const messageElement = this.#buildMessageElement(currentUserIsSender, data.message)
     this.messagesTarget.insertAdjacentHTML("beforeend", messageElement)
     this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
+
+    if (data.chatroom_full) {
+      this.#disableChat()
+    }
+  }
+
+  #disableChat() {
+    if (this.submitTarget) {
+      this.submitTarget.disabled = true
+    }
+    if (this.inputTarget) {
+      this.inputTarget.disabled = true
+    }
+    const message = document.createElement("p")
+    message.classList.add("text-danger")
+    message.textContent = "This conversation has reached its maxium length. Please make a new one."
+    this.inputTarget.parentElement.appendChild(message)
   }
 
   #buildMessageElement(currentUserIsSender, message) {

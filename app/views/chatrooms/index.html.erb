@@ -7,8 +7,11 @@
     <div class="d-flex flex-column justify-content-center align-items-center gap-1">
       <% @lesson.chatrooms.order(:created_at).reverse.each do |chatroom| %>
         <% if @user.chatrooms.include? chatroom %>
-          <div class="d-flex align-self-stretch align-items-center justify-content-center">
-            <%= link_to chatroom.name, chatroom_path(chatroom), class: "btn btn-gradient w-100 mb-1" %>
+          <div class="position-relative d-flex align-self-stretch align-items-center justify-content-center">
+            <%= link_to chatroom.name, chatroom_path(chatroom), class: chatroom.full? ? "btn btn-gradient full-chatroom" : "btn btn-gradient w-100 mb-1" %>
+            <% if chatroom.full? %>
+              <span class="badge bg-danger position-absolute top-0 start-0">Chat is full</span>
+            <% end %>
             <%= link_to chatroom_path(chatroom),
             class: "btn p-0",
             data: { "turbo-method": :delete,
