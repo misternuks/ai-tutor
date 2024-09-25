@@ -1,12 +1,3 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
 puts "Inserting the breakfast pastry..."
 Message.delete_all
 Chatroom.delete_all
@@ -15,36 +6,50 @@ Unit.delete_all
 Course.delete_all
 User.delete_all
 
-puts "...Warming the syrup..."
-User.create!(email: ENV.fetch("AI_EMAIL"), username: "assistant", password: ENV.fetch("ADMIN_PASSWORD"), password_confirmation: ENV.fetch("ADMIN_PASSWORD"))
+puts "...The secret government Eggo project..."
+User.create!(email: ENV.fetch("AI_EMAIL"), username: "assistant",
+  password: ENV.fetch("ADMIN_PASSWORD"),
+  password_confirmation: ENV.fetch("ADMIN_PASSWORD"),
+  class_code: ENV.fetch("ADMIN_CLASS_CODE"))
 
-User.create!(email: ENV.fetch("GMAIL_USERNAME"), username: "Matthew", password: ENV.fetch("ADMIN_PASSWORD"), password_confirmation: ENV.fetch("ADMIN_PASSWORD"), admin: true)
+puts "...Contact Dr. Jemima ..."
+User.create!(email: ENV.fetch("GMAIL_USERNAME"),
+  username: ENV.fetch("ADMIN_USERNAME"), password: ENV.fetch("ADMIN_PASSWORD"),
+  password_confirmation: ENV.fetch("ADMIN_PASSWORD"), admin: true,
+  instructor: true, class_code: ENV.fetch("ADMIN_CLASS_CODE"))
 
-SystemMessage.create!(content: "You are an AI tutor at Kanda University of International Studies in Chiba, Japan. Your role is to assist EFL (English as a Foreign Language) university students by analyzing the lesson material they provide. Act as though you are the teacher who taught the lesson, and adhere to the following guidelines when answering student queries:
+User.create!(email: "teachmaster5000@teach.edu", username: "TeachMaster 5000",
+  password: "I love to teach", instructor: true,
+  class_code: loop { n = rand(1000..9999); break n unless n == ENV.fetch("ADMIN_CLASS_CODE") || n == ENV.fetch("INSTRUCTOR_CLASS_CODE") })
 
-Note: Limit discussions to the lesson topic. Politely refuse to engage in conversations about unrelated subjects.
+puts "...God I love the blueberry ones best..."
+SystemMessage.create!(content: ENV.fetch("SYSTEM_MESSAGE"))
+puts "...Start warming the syrup..."
+Course.create!(name: "Global Environmental Issues", details: "This course explores critical environmental challenges facing the world today. Students will examine topics such as climate change, pollution, and sustainable development, focusing on global solutions and their local impacts. Through discussions, case studies, and projects, students will develop a better understanding of how to address environmental problems.", user: User.find_by(username: ENV.fetch("ADMIN_USERNAME")))
+puts "...Yum..."
+Unit.create!(name: "Unit 1: Climate Change and Its Impact", details: "This unit covers the science behind climate change, including causes, consequences, and mitigation strategies. Students will explore global warming, rising sea levels, and how climate change affects both ecosystems and human populations.", course: Course.find_by(name: "Global Environmental Issues"))
+Lesson.create!(name: "Lesson 1: Understanding Climate Science", details: "Lecture Summary: The basics of climate science, focusing on the greenhouse effect, carbon emissions, and their role in global warming.
+Class Activity: Students will analyze recent climate data and interpret graphs showing temperature changes over the past century.
+Homework Assignment: Write a 500-word essay on how climate change has affected a specific country, focusing on rising temperatures or sea levels.", unit: Unit.find_by(name: "Unit 1: Climate Change and Its Impact"))
+Lesson.create!(name: "Lesson 2: Mitigation and Adaptation Strategies", details: "Lecture Summary: Examination of strategies to reduce or cope with climate change impacts, including renewable energy, carbon taxes, and reforestation.
+Class Activity: Group discussions on various mitigation strategies and how they can be applied in different countries.
+Homework Assignment: Create a short presentation proposing a climate change mitigation plan for Japan.", unit: Unit.find_by(name: "Unit 1: Climate Change and Its Impact"))
+Unit.create!(name: "Unit 2: Pollution and Public Health", details: "This unit delves into different forms of pollution, including air, water, and soil pollution, and their effects on human health. Students will learn about both global and local pollution challenges and explore policy responses.", course: Course.find_by(name: "Global Environmental Issues"))
+Lesson.create!(name: "Lesson 1: Air Pollution and Its Effects on Health", details: "Lecture Summary: An overview of air pollution sources, such as factories and vehicles, and the harmful effects on respiratory and cardiovascular health.
+Class Activity: Students will read case studies of cities dealing with severe air pollution and discuss possible solutions.
+Homework Assignment: Research a Japanese city affected by air pollution and prepare a 2-page report on how the city is addressing the issue.", unit: Unit.find_by(name: "Unit 2: Pollution and Public Health"))
+Lesson.create!(name: "Lesson 2: Water Pollution and Its Impact on Ecosystems", details: "Lecture Summary: Exploration of the causes and consequences of water pollution, focusing on industrial waste, oil spills, and agricultural runoff.
+Class Activity: Simulation of a water contamination scenario, where students brainstorm solutions to clean up a polluted river.
+Homework Assignment: Write a 300-word summary of a water pollution event in Japan, detailing its impact on local wildlife.", unit: Unit.find_by(name: "Unit 2: Pollution and Public Health"))
 
-Guidelines:
-Lesson Material Focus: Concentrate solely on the lesson material provided by the student.
-
-Simple Language: Use basic vocabulary and short sentences in your responses.
-
-Concise Answers: Keep your answers brief to avoid overwhelming the students.
-
-Clarity: Prioritize clarity by avoiding jargon and complex language structures.
-
-Examples & Analogies: Use simple examples or analogies to explain complex points.
-
-Individual Question Handling: If asked multiple questions, address each one individually for better clarity.
-
-Understanding Confirmation: Confirm that the student understands your explanation before moving on.
-
-Topic Navigation: If the conversation strays from the lesson material, steer it back politely.
-
-Language Option: If a student struggles with English, offer to switch to Japanese.
-
-Your primary goal is to facilitate effective understanding of the lesson material. Always adhere to these guidelines during interactions.
-
-WARNING: ALWAYS SPEAK AT A CEFR A2 LEVEL. NEVER USE HIGH LEVEL VOCABULARY UNLESS INTRODUCING IT AS NEW VOCABULARY TO THE USER. PROVIDE ONE PARAGRAPH ANSWERS OR OFFER TO CONTINUE IN A SUBSEQUENT MESSAGE.")
+puts "... Increase the Flash Gordon noise and put more science stuff around."
+Course.create!(name: "Cultural Communication in a Globalized World", details: "This course focuses on the role of cultural communication in the context of globalization. Students will learn about cross-cultural interactions, misunderstandings, and strategies for effective communication in international settings, both in personal and professional environments.", user: User.find_by(username: "TeachMaster 5000"))
+Unit.create(name: "Unit 1: Understanding Cultural Differences", details: "In this unit, students will explore cultural dimensions such as individualism vs. collectivism, power distance, and uncertainty avoidance. Emphasis will be placed on how these cultural differences manifest in communication styles.", course: Course.find_by(name: "Cultural Communication in a Globalized World"))
+Lesson.create(name: "Lesson 1: Theories of Cultural Dimensions", details: "Lecture Summary: Introduction to Hofstede's cultural dimensions theory, discussing key concepts like individualism vs. collectivism and high vs. low context communication.
+Class Activity: Role-play exercise where students practice communicating in both high and low-context scenarios.
+Homework Assignment: Compare Japanese and Western communication styles in a 500-word essay, using Hofstede’s dimensions as a framework.", unit: Unit.find_by(name: "Unit 1: Understanding Cultural Differences"))
+Lesson.create(name: "Lesson 2: Miscommunication Across Cultures", details: "Lecture Summary: Focus on common cultural misunderstandings and the impact of non-verbal communication across different cultures.
+Class Activity: Watch and analyze a video showcasing cross-cultural miscommunication, followed by group discussions on how it could have been avoided.
+Homework Assignment: Identify a real-life example of cross-cultural miscommunication and describe the cultural factors that contributed to it.", unit: Unit.find_by(name: "Unit 1: Understanding Cultural Differences"))
 
 puts "...Oh my god, my waffle!"

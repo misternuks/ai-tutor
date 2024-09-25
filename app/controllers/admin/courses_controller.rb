@@ -9,8 +9,14 @@ class Admin::CoursesController < ApplicationController
   def edit_permissions
     @course = Course.find(params[:id])
 
-    # Fetch all class codes and their associated instructors
-    instructors = User.where(instructor: true).select(:class_code, :username, :email).distinct
+    # Get the class code of the instructor who created the course
+    instructor_class_code = @course.user.class_code
+
+    # Fetch all class codes and their associated instructors, excluding the course's instructor class code
+    instructors = User.where(instructor: true)
+                      .where.not(class_code: instructor_class_code)
+                      .select(:class_code, :username, :email)
+                      .distinct
 
     @class_codes_with_instructors = instructors.map do |user|
       {
@@ -19,9 +25,9 @@ class Admin::CoursesController < ApplicationController
       }
     end
 
-    # Handle class codes without an instructor
+    # Handle class codes without an instructor, excluding the course's instructor class code
     existing_class_codes = @class_codes_with_instructors.map { |item| item[:class_code] }
-    all_class_codes = User.distinct.pluck(:class_code)
+    all_class_codes = User.distinct.pluck(:class_code) - [instructor_class_code]
     missing_class_codes = all_class_codes - existing_class_codes
 
     missing_class_codes.each do |class_code|
@@ -34,7 +40,12 @@ class Admin::CoursesController < ApplicationController
 
   def update_permissions
     @course = Course.find(params[:id])
-    permitted_class_codes = params[:course]&.[](:permitted_class_codes) || []
+    instructor_class_code = @course.user.class_code
+    permitted_class_codes = params.dig(:course, :permitted_class_codes) || []
+
+    # Ensure the instructor's class_code is not included
+    permitted_class_codes = permitted_class_codes - [instructor_class_code]
+
     if @course.update(permitted_class_codes: permitted_class_codes)
       redirect_to admin_courses_path, notice: 'Permissions updated successfully.'
     else
