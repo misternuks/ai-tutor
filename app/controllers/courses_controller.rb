@@ -3,11 +3,12 @@ class CoursesController < AuthenticationsController
 
   def index
     @user = current_user
-    @courses = Course.all
-    # respond_to do |format|
-    #   format.json { render json: @courses }
-    # end
+    @courses = Course.joins(:user).where(
+      "users.class_code = :class_code OR :class_code = ANY (courses.permitted_class_codes)",
+      class_code: @user.class_code
+    )
   end
+
 
 
   def show

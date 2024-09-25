@@ -24,6 +24,13 @@ Rails.application.routes.draw do
         patch :toggle_instructor
       end
     end
+
+    resources :courses, only: [:index] do
+      member do
+        get :edit_permissions
+        patch :update_permissions
+      end
+    end
   end
 
   resources :system_messages, only: %i[show edit update]

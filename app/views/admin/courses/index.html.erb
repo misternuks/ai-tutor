@@ -1,0 +1,29 @@
+<div class="p-3 d-flex flex-column align-items-center justify-content-center">
+  <h1 class="text-center">Manage Course Permissions</h1>
+  <h5 class="text-center mb-3">Click "Edit Permissions" to allow view access
+    to other instructors (and by extension their students).
+  </h5>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Course Name</th>
+        <th scope="col">Instructor</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.name %></td>
+          <td><%= course.user.username %> (Class Code: <%= course.user.class_code %>)</td>
+          <td>
+            <%= link_to 'Edit Permissions', edit_permissions_admin_course_path(course) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="d-flex align-items-center justify-content-center ">
+  <%= link_to "< Back to courses", courses_path, class: "btn btn-ghost-2 h1" %>
+</div>

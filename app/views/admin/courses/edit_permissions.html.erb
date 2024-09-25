@@ -1,0 +1,23 @@
+<div class="p-3 d-flex flex-column align-items-center justify-content-center">
+  <h1 class="text-center mb-3">Edit Permissions for <%= @course.name %></h1>
+  <div class="display-card">
+    <%= simple_form_for [:admin, @course], url: update_permissions_admin_course_path(@course), method: :patch do |f|%>
+      <div >
+        <h5>Select which additional instructors should have view access to this course:</h5>
+        <small class="mb-5">(Note: the instructor's students will, by extension, be granted accesss to the course)</small>
+        <hr>
+        <%= f.collection_check_boxes :permitted_class_codes, @class_codes_with_instructors,
+          ->(item) { item[:class_code] }, ->(item) { item[:label] }, include_hidden: false do |b| %>
+          <div class= "form-check" >
+            <%= b.check_box class: "form-check-input" %>
+            <%= b.label class: "form-check-label" %>
+          </div>
+        <% end %>
+      </div>
+      <%= f.submit 'Update Permissions', class: 'btn btn-gradient mt-3' %>
+    <% end %>
+  </div>
+</div>
+<div class="d-flex align-items-center justify-content-center ">
+  <%= link_to "< Back to courses", courses_path, class: "btn btn-ghost-2 h1" %>
+</div>

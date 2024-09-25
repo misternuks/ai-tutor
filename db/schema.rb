@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_18_103205) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_24_122022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_103205) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "permitted_class_codes", default: [], array: true
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
@@ -93,6 +94,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_103205) do
 
   add_foreign_key "chatrooms", "lessons"
   add_foreign_key "chatrooms", "users"
+  add_foreign_key "class_codes", "users", column: "instructor_id"
+  add_foreign_key "course_accesses", "class_codes"
+  add_foreign_key "course_accesses", "courses"
   add_foreign_key "courses", "users"
   add_foreign_key "lessons", "units"
   add_foreign_key "messages", "chatrooms"

@@ -20,7 +20,7 @@
   <% if current_user.admin || current_user.instructor %>
     <div class="display-card mt-3">
       <h1 class="text-center">For Instructors</h1>
-      <h5>Your class code: <%= current_user.class_code ? current_user.class_code : "None assigned (contact your administrator)" %></h5>
+      <h5>Your class code: <span class="text-primary"><%= current_user.class_code ? current_user.class_code : "None assigned (contact your administrator)" %></span></h5>
       <h5>Current courses:</h5>
       <div class="d-flex flex-column align-items-center justify-content-center gap-1">
         <% @courses.each do |course| %>
@@ -36,6 +36,7 @@
     <div class="display-card mt-3">
       <h1 class="text-center">For Administrators</h1>
       <div class="d-flex flex-column align-items-center justify-content-center gap-1">
+        <%= link_to "Manage Course Permissions", admin_courses_path, class: "btn btn-gradient w-100" %>
         <%= link_to "All users", admin_users_path, class: "btn btn-gradient w-100" %>
         <%= link_to "All messages", messages_path, class: "btn btn-gradient w-100" %>
         <%= link_to "View or Edit the System Message", system_message_path(SystemMessage.last), class: "btn btn-gradient w-100" %>
